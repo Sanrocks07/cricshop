@@ -1,8 +1,11 @@
+//Module to add extra bootstrap dependencies or shared components
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { PagingHeaderComponent } from './paging-header/paging-header.component';
 import { PagerComponent } from './pager/pager.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 
@@ -13,12 +16,14 @@ import { PagerComponent } from './pager/pager.component';
   ],
   imports: [
     CommonModule,
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    CarouselModule.forRoot()
   ],
   exports:[
     PaginationModule,
     PagingHeaderComponent,
-    PagerComponent
+    PagerComponent,
+    CarouselModule
   ]
 })
 export class SharedModule { }
