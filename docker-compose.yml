@@ -1,5 +1,7 @@
 # redis database url : http://127.0.0.1:8081/
 #url: localhost:8081
+#docker command: Inside Cricshop Terminal, docker-compose up --detach
+#make sure docker desktop application is running
 services:
 
   redis:
