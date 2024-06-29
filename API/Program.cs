@@ -15,10 +15,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddSwaggerDocumentation();
 
 var app = builder.Build();
 
@@ -26,34 +27,9 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.UseStatusCodePagesWithReExecute("/errors/{0}"); 
+app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-
-    app.UseSwagger();
-    app.UseSwaggerUI();
-
-//commented WeatherForecast
-// var summaries = new[]
-// {
-//     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-// };
-
-// app.MapGet("/weatherforecast", () =>
-// {
-//     var forecast =  Enumerable.Range(1, 5).Select(index =>
-//         new WeatherForecast
-//         (
-//             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-//             Random.Shared.Next(-20, 55),
-//             summaries[Random.Shared.Next(summaries.Length)]
-//         ))
-//         .ToArray();
-//     return forecast;
-// })
-// .WithName("GetWeatherForecast")
-// .WithOpenApi();
-
-
+app.UseSwaggerDocumentation();
 
 app.UseStaticFiles();
 
@@ -71,13 +47,14 @@ var identityContext = services.GetRequiredService<AppIdentityDbContext>();
 var userManager = services.GetRequiredService<UserManager<AppUser>>();
 var logger = services.GetRequiredService<ILogger<Program>>();
 
-try{
+try
+{
     await context.Database.MigrateAsync();
     await identityContext.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(context);
     await AppIdentityDbContextSeed.SeedUsersAsync(userManager);
 }
-catch(Exception ex)
+catch (Exception ex)
 {
     logger.LogError(ex, "An error occured during migration");
 }
