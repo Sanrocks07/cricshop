@@ -2,6 +2,12 @@
 #url: localhost:8081
 #docker command: Inside Cricshop Terminal, docker-compose up --detach
 #make sure docker desktop application is running
+
+#stripe_website->docs->testing
+#card numbers: VISA(Valid) -> 4242 4242 4242 4242
+#3D-Auth Card: 4000 0027 6000 3184
+
+#Tech stack of app: Angular, .Net, Typescript, c#, Sqlite, Redis, Docker, Stripe
 services:
 
   redis:
